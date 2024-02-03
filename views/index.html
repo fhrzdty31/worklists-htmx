@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKList's</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        padding: 5rem;
+    }
+    section {
+        border: 1.5px solid black;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        width: 100%;
+        max-width: 50rem;
+    }
+    section.header h1 {
+        width: 100%;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    section.header h4 {
+        width: 100%;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+        padding-inline: 0.25rem;
+    }
+    section.header div {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    section.header div * {
+        border: 1px solid black;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        font-size: medium;
+    }
+    section.header div input {
+        width: 100%;
+    }
+    section.header div button {
+        font-weight: bold;
+        cursor: pointer;
+    }
+    section.header div button:hover {
+        background-color: lightgray;
+    }
+    section.body h1 {
+        width: 100%;
+        text-align: center;
+        font-size: large;
+        font-weight: bold;
+    }
+    section.body ul li span {
+        cursor: pointer;
+    }
+</style>
+<body>
+    <section class="header">
+        <h1>Work List</h1>
+        <h4 id="notif"></h4>
+        <div>
+            <input type="text" name="title" placeholder="Tulis Kegiatanmu..">
+            <button hx-include="[name=title]" hx-post="/work" hx-trigger="click" hx-target="#notif" id="save">ADD</button>
+        </div>
+    </section>
+    <section class="body">
+        <ul hx-get="/work" hx-trigger="load delay:0.75s, click from:#save delay:0.75s"></ul>
+    </section>
+    <script src="/htmx.min.js"></script>
+    <script>
+        htmx.on('htmx:afterRequest', event => {
+            if (event.detail.elt.id === 'save' && event.detail.xhr.status === 200) {
+                document.querySelector('[name=title]').value = ''
+                setTimeout(() => document.getElementById('notif').innerHTML = '', 2500)
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "worklists",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "nodemon ./index.js"
+  },
+  "keywords": [
+    "CRUD",
+    "HTMX"
+  ],
+  "author": "fhrzdty31",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.9.1",
+    "express": "^4.18.2",
+    "htmx.org": "^1.9.10"
+  },
+  "devDependencies": {
+    "prisma": "^5.9.1"
+  }
+}
